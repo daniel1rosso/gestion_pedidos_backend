@@ -1,0 +1,30 @@
+{
+  "name": "gestion_pedidos",
+  "version": "1.0.0",
+  "description": "gestion_pedidos",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "Nodejs",
+    "Mongodb"
+  ],
+  "author": "Aristote Ngoy",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^15.6.1",
+    "bcrypt": "^3.0.7",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "envdot": "0.0.3",
+    "express": "^4.17.1",
+    "express-openapi": "^9.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.2.4",
+    "mongoose": "^5.5.8",
+    "nodemon": "^1.19.4",
+    "swagger-jsdoc": "^7.0.0-rc.6",
+    "swagger-ui-express": "^4.1.6"
+  }
+}
