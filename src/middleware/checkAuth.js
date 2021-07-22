@@ -1,5 +1,4 @@
 const LoginModel = require('../models/LoginModel');
-const jwt = require('jsonwebtoken')
 
 module.exports = async (req, res, next) => {
     //try {

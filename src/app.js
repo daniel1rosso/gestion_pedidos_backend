@@ -22,6 +22,7 @@ const productoRoute = require('./routes/producto');
 const rolRoute = require('./routes/rol');
 const userRoute = require('./routes/usuario');
 const loginRoute = require('./routes/login');
+const procesamientoRoute = require('./routes/procesamiento');
 
 //INIT ROUTE
 app.use('/cliente', clienteRoute);
@@ -29,6 +30,7 @@ app.use('/producto', productoRoute);
 app.use('/rol', rolRoute);
 app.use('/usuario', userRoute);
 app.use('/login', loginRoute);
+app.use('/procesar', procesamientoRoute);
 
 //START SERVER
 app.listen(8001);

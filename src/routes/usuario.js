@@ -5,7 +5,6 @@ const UsuarioModel = require('../models/UsuarioModel');
 const checkAuth = require('../middleware/checkAuth');
 const fs = require("fs")
 const readline = require('readline');
-const { Console } = require('console');
 
 //--- Todos los usuarios ---//
 router.get('/', checkAuth, async(req, res) => {
@@ -36,23 +35,8 @@ router.post('/signup', async(req, res) => {
         }
         const hashPassword = bcrypt.hash(req.body.password, 10);
         const user = new UsuarioModel({
-            nombre: req.body.nombre,
-            apellido: req.body.apellido,
-            email: req.body.email,
-            telefono: req.body.telefono,
             username: req.body.username,
             password: hashPassword,
-            localidad: req.body.localidad,
-            provincia: req.body.provincia,
-            dni: req.body.dni,
-            activo: {
-                "id": 0,
-                "nombre": "Activo"
-            },
-            rol: {
-                "id": 2,
-                "nombre": "Usuario"
-            }
         });
         const createdUser = await user.save();
         res.status(201).json(createdUser);
@@ -89,34 +73,5 @@ router.delete('/:userID', checkAuth, async(req, res) => {
         res.status(500).json({ message: error })
     }
 });
-
-//--- Lectura y procesamiento de archivos ---//
-router.get('/procesar/archivo', async(req, res) => {
-    try {
-        fs.readdir('./files/usuarios/', (error, files) => {
-            if (files != []){
-                users = []
-                files.forEach(element => {
-                    const url_file = './files/usuarios/' + element
-                    var myInterface = readline.createInterface({
-                        input: fs.createReadStream(url_file, 'utf8')
-                    });
-                      
-                    var lineno = 0;
-                    myInterface.on('line', function (line) {
-                        lineno++;
-                        users.push(line.split(';'))
-                        console.log(users)
-                    })
-                })
-            } else {
-                res.status(500).json({ message: error })
-            }
-        })
-    } catch (error) {
-        res.status(500).json({ message: error })
-    }
-});
-
 
 module.exports = router;
