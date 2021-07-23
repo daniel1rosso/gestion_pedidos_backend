@@ -11,11 +11,7 @@ router.post('/', (req, res) => {
     UsuarioModel.findOne({ username: req.body.username }).exec()
         .then(user => {
             if (user) {
-                if(user.activo[0].id == 0) {
-                    verifyPassword(user, req, res)
-                } else {
-                    res.status(500).json({ message: "Inactive user" , success: 0})
-                }
+                verifyPassword(user, req, res)
             } else {
                 res.json({ message: "Incorrect username or password...",  success: 0 })
             }
@@ -49,7 +45,7 @@ const getToken = (user, res) => {
         token: token
     });
     const createdSession = login.save();
-
+    
     if(createdSession) {
         res.json({
             success: 1,
@@ -58,7 +54,7 @@ const getToken = (user, res) => {
             token: token,
             "id":user._id,
             "username": user.username,
-            "authorities": {"authority":user.rol[0].nombre}
+            "authorities": {"authority":"Administrador"}
         });
     } else {
         res.json({ message: "Authentication failed ...",  success: 0 })
