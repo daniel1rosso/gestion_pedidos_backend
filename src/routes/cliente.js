@@ -26,22 +26,13 @@ router.get('/:cliente_id', checkAuth, async(req, res) => {
 //--- Nuevo cliente ---//
 router.post('/new_cliente', checkAuth, async(req, res) => {
     try {
-        const existingCliente = await ClienteModel.find({ nombre: req.body.nombre, apellido: req.body.apellido })
+        const existingCliente = await ClienteModel.find({ codigo: req.body.codigo })
         if (existingCliente.length !== 0) {
             return res.status(409).json({ message: "The Cliente does exist ..." })
         }
         const cliente = new ClienteModel({
-            nombre: req.body.nombre,
-            apellido: req.body.apellido,
-            telefono: req.body.telefono,
-            email: req.body.email,
-            direccion: req.body.direccion,
-            nro_piso: req.body.nro_piso,
-            depto: req.body.depto,
-            localidad: req.body.localidad,
-            provincia: req.body.provincia,
-            activo: req.body.activo,
-	        dni:req.body.dni
+            codigo: req.body.codigo,
+            nombre: req.body.nombre
         });
         const createdCliente = await cliente.save();
         res.status(201).json(createdCliente);
